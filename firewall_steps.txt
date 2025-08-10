@@ -1,0 +1,36 @@
+
+Task: Configure and Test Basic Firewall Rules
+
+1. Checked if UFW (Uncomplicated Firewall) was installed:
+   Command: sudo ufw status
+   Output: "command not found" → UFW was not installed.
+
+2. Installed UFW on macOS (Note: UFW is not natively supported, so switched to pfctl for macOS firewall management).
+
+3. Checked macOS firewall status:
+   Command: sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+   Output: Firewall is enabled.
+
+4. Listed current firewall rules:
+   Command: sudo /usr/libexec/ApplicationFirewall/socketfilterfw --listapps
+
+5. Added a block rule for Telnet (port 23) [Demonstration purpose]:
+   Command (example for Linux): sudo ufw deny 23
+   On macOS, used pfctl config file to block inbound port 23.
+
+6. Tested blocked port using:
+   Command: nc -vz localhost 23
+   Output: Connection refused (as expected).
+
+7. Allowed SSH (port 22) [example for Linux]:
+   Command: sudo ufw allow 22
+   On macOS, allowed SSH via firewall settings.
+
+8. Removed the test block rule for port 23:
+   Command: sudo ufw delete deny 23
+   On macOS, removed pfctl rule.
+
+9. Summary:
+   - Verified firewall is active.
+   - Learned to block and allow specific ports.
+   - Understood how firewall filters inbound traffic.
